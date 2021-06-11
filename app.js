@@ -12,6 +12,17 @@ const percentageTied = document.querySelector('.percentage-value-tied')
 const game = document.querySelector(".game")
 const modalElement = document.querySelector('.modal')
 
+const blockAlignment = [
+  [0, 1, 2],
+  [0, 3, 6],
+  [0, 4, 8],
+  [1, 4, 7],
+  [2, 5, 8],
+  [2, 4, 6],
+  [3, 4, 5],
+  [6, 7, 8]
+]
+
 let computerPoints = 0
 let playerPoints = 0
 let tiedPoints = 0
@@ -32,7 +43,7 @@ function decideSymbol(symbol, secondSymbol) {
 
 function applyPorcentage() {
   let totalGame = computerPoints + playerPoints + tiedPoints
-  
+
   percentagePlayer.innerHTML = ((100 * playerPoints) / totalGame).toFixed(2) + "%"
   percentageComputer.innerHTML = ((100 * computerPoints) / totalGame).toFixed(2) + "%"
   percentageTied.innerHTML = ((100 * tiedPoints) / totalGame).toFixed(2) + "%"
@@ -53,17 +64,7 @@ function applyPoints(symbol) {
 }
 
 function gameStatus() {
-  const blockAlignment = [
-    [0, 1, 2],
-    [0, 3, 6],
-    [0, 4, 8],
-    [1, 4, 7],
-    [2, 5, 8],
-    [2, 4, 6],
-    [3, 4, 5],
-    [6, 7, 8]
-  ]
-  blockAlignment.forEach((item) => {
+    blockAlignment.forEach((item) => {
     const [firstBlock, secondBlock, thirdBlock] = item
 
     if (block[firstBlock].innerHTML && block[firstBlock].innerHTML === block[secondBlock].innerHTML && block[firstBlock].innerHTML === block[thirdBlock].innerHTML) {
@@ -71,13 +72,13 @@ function gameStatus() {
       applyPoints(block[firstBlock].innerHTML)
       pause = true
     }
-
-    if (!pause && block[0].innerHTML && block[1].innerHTML && block[2].innerHTML && block[3].innerHTML && block[4].innerHTML && block[5].innerHTML && block[6].innerHTML && block[7].innerHTML && block[8].innerHTML) {
-      status.innerHTML = 'O jogo empatou'
-      pause = true
-      applyPoints()
-    }
   })
+
+  if (!pause && block[0].innerHTML && block[1].innerHTML && block[2].innerHTML && block[3].innerHTML && block[4].innerHTML && block[5].innerHTML && block[6].innerHTML && block[7].innerHTML && block[8].innerHTML) {
+    status.innerHTML = 'O jogo empatou'
+    applyPoints()
+    pause = true
+  }
 
   if (!pause) {
     status.innerHTML = `${status.innerHTML === playerSymbol + " é o próximo" ? computerSymbol : playerSymbol} é o próximo`
@@ -96,9 +97,20 @@ function computerPlay() {
   if (!pause) {
     pause = true
     setTimeout(() => {
-      const computerArray = Array.from(block).filter((item) => item.innerHTML === "")
-      computerArray[Math.floor(Math.random() * computerArray.length)].innerHTML = computerSymbol
-      pause = false
+      blockAlignment.forEach((item) => {
+        const [firstBlock, secondBlock, thirdBlock] = item
+        
+        if (pause && block[firstBlock].innerHTML && block[firstBlock].innerHTML === block[secondBlock].innerHTML && block[thirdBlock].innerHTML === "") {
+          block[thirdBlock].innerHTML = computerSymbol
+          pause = false
+        }
+      })
+
+      if(pause) {
+        const computerArray = Array.from(block).filter((item) => item.innerHTML === "")
+        computerArray[Math.floor(Math.random() * computerArray.length)].innerHTML = computerSymbol
+        pause = false
+      }
       gameStatus()
     }, 1000)
   }
