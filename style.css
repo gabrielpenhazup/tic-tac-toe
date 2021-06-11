@@ -205,6 +205,8 @@ footer i {
     font-size: 7em;
 }
 
+/* hidden */
+
 .hidden {
     display: none;
 }

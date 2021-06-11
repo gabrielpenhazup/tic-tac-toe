@@ -43,7 +43,7 @@
     </div>
 
     <footer>
-      <div class="points player">
+      <div class="points">
         <div class="icon-points">
           <i class="fas fa-user"></i>
         </div>
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div class="points a-tie">
+      <div class="points">
         <div class="icon-points">
           <i class="fas fa-handshake"></i>
         </div>
@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class="points computer">
+      <div class="points">
         <div class="icon-points">
           <i class="fas fa-laptop"></i>
         </div>
@@ -93,23 +93,22 @@
           </p>
         </div>
       </div>
+    </footer>
 
-      <div class="modal">
-        <div class="modal-content">
-          <h2>Escolha o seu simbolo</h2>
-          <div class="choice">
-            <i class='fas fa-times'
-              onclick='decideSymbol(`<i class="fas fa-times" aria-hidden="true"></i>`,`<i class="far fa-circle" aria-hidden="true"></i>`)'
-              aria-hidden='true'></i>
-            <i class='far fa-circle'
-              onclick='decideSymbol(`<i class="far fa-circle" aria-hidden="true"></i>`, `<i class="fas fa-times" aria-hidden="true"></i>`)'
-              aria-hidden='true'></i>
-          </div>
+    <div class="modal">
+      <div class="modal-content">
+        <h2>Escolha o seu simbolo</h2>
+        <div class="choice">
+          <i class='fas fa-times'
+            onclick='decideSymbol(`<i class="fas fa-times" aria-hidden="true"></i>`,`<i class="far fa-circle" aria-hidden="true"></i>`)'
+            aria-hidden='true'></i>
+          <i class='far fa-circle'
+            onclick='decideSymbol(`<i class="far fa-circle" aria-hidden="true"></i>`, `<i class="fas fa-times" aria-hidden="true"></i>`)'
+            aria-hidden='true'></i>
         </div>
       </div>
-  </div>
+    </div>
 
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
-
 </html>
